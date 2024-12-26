@@ -11,7 +11,7 @@ public sealed class UserRequestHandler(IRequestClient<GetUserOfXQuery> client)
 {
     public async Task<ItemsResponse<OfXDataResponse>> RequestAsync(RequestContext<GetUserOfXQuery> request)
     {
-        var users = await client.GetResponse<ItemsResponse<OfXDataResponse>>(request);
+        var users = await client.GetResponse<ItemsResponse<OfXDataResponse>>(request.Query);
         return users.Message;
     }
 }
