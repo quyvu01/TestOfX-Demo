@@ -9,10 +9,9 @@ namespace Service1.FetchData;
 public sealed class UserRequestHandler(IRequestClient<GetUserOfXQuery> client)
     : IMappableRequestHandler<GetUserOfXQuery, UserOfAttribute>
 {
-    public async Task<ItemsResponse<OfXDataResponse>> RequestAsync(GetUserOfXQuery request,
-        CancellationToken cancellationToken = new())
+    public async Task<ItemsResponse<OfXDataResponse>> RequestAsync(RequestContext<GetUserOfXQuery> request)
     {
-        var users = await client.GetResponse<ItemsResponse<OfXDataResponse>>(request, cancellationToken);
+        var users = await client.GetResponse<ItemsResponse<OfXDataResponse>>(request);
         return users.Message;
     }
 }

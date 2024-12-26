@@ -10,10 +10,12 @@ using WorkerService1.Contexts;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddOfX(cfg =>
-{
-    cfg.RegisterContractsContainsAssemblies(typeof(IService2ContractAssembly).Assembly);
-    cfg.RegisterHandlersContainsAssembly<IAssemblyMarker>();
-}).RegisterOfXEntityFramework<Service2Context, IAssemblyMarker>();
+    {
+        cfg.RegisterContractsContainsAssemblies(typeof(IService2ContractAssembly).Assembly);
+        cfg.RegisterHandlersContainsAssembly<IAssemblyMarker>();
+    })
+    .AddOfXEFCore<Service2Context>()
+    .AddOfXHandlers<IAssemblyMarker>();
 
 builder.Services.AddDbContextPool<Service2Context>(options =>
 {
