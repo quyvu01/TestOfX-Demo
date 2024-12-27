@@ -10,4 +10,13 @@ public class MemberResponse
 
     [UserOf(nameof(UserId), Expression = "Email")]
     public string UserEmail { get; set; }
+
+    [UserOf(nameof(UserId), Expression = "ProvinceId")]
+    public string ProvinceId { get; set; }
+
+    [ProvinceOf(nameof(ProvinceId), Order = 1)]
+    public string ProvinceName { get; set; }
+
+    [ProvinceOf(nameof(ProvinceId), Expression = "Country.Name", Order = 1)]
+    public string CountryName { get; set; }
 }

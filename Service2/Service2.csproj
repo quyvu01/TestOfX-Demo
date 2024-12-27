@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dotnet-WorkerService1-0E75FF9B-BD58-4D97-8114-5C6D3406F965</UserSecretsId>
+        <RootNamespace>WorkerService1</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,7 +14,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
-        <PackageReference Include="OfX-EFCore" Version="1.1.3" />
+        <PackageReference Include="OfX-EFCore" Version="1.1.4" />
     </ItemGroup>
 
     <ItemGroup>

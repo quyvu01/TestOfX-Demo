@@ -11,8 +11,8 @@ using WorkerService1.Contexts;
 namespace WorkerService1.Migrations
 {
     [DbContext(typeof(Service2Context))]
-    [Migration("20241224161909_initDb")]
-    partial class initDb
+    [Migration("20241227025348_addProvinceId")]
+    partial class addProvinceId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace WorkerService1.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProvinceId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

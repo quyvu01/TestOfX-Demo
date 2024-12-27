@@ -3,6 +3,7 @@ using OfX.Grpc.Extensions;
 using Service1;
 using Service1.Contract;
 using Service2.Contract;
+using Service3.Contract;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +12,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddOfX(cfg =>
 {
-    cfg.RegisterContractsContainsAssemblies(typeof(IService1ContractAssembly).Assembly,
-        typeof(IService2ContractAssembly).Assembly);
-    cfg.RegisterHandlersContainsAssembly<IAssemblyMarker>();
-    cfg.RegisterClientsAsGrpc(config => config.RegisterForAssembly<IService2ContractAssembly>("http://localhost:5001"));
+    cfg.AddContractsContainNamespaces(typeof(IService1ContractAssembly).Assembly,
+        typeof(IService2ContractAssembly).Assembly, typeof(IService3ContractAssembly).Assembly);
+    cfg.AddHandlersFromNamespaceContaining<IAssemblyMarker>();
+    cfg.AddGrpcClients(config => config
+        .RegisterContractsFromNamespaceContainning<IService2ContractAssembly>("http://localhost:5001")
+        .RegisterContractsFromNamespaceContainning<IService3ContractAssembly>("http://localhost:5013")
+    );
 });
 
 builder.Services.AddControllers();

@@ -11,15 +11,14 @@ using WorkerService1.Contexts;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
-        cfg.RegisterContractsContainsAssemblies(typeof(IService2ContractAssembly).Assembly);
-        cfg.RegisterHandlersContainsAssembly<IAssemblyMarker>();
+        cfg.AddContractsContainNamespaces(typeof(IService2ContractAssembly).Assembly);
+        cfg.AddHandlersFromNamespaceContaining<IAssemblyMarker>();
     })
-    .AddOfXEFCore<Service2Context>()
-    .AddOfXHandlers<IAssemblyMarker>();
+    .AddOfXEFCore<Service2Context>();
 
 builder.Services.AddDbContextPool<Service2Context>(options =>
 {
-    options.UseNpgsql("Host=localhost;Username=postgres;Password=Abcd@2021;Database=OfXTestService1", b =>
+    options.UseNpgsql("Host=localhost;Username=postgres;Password=Abcd@2021;Database=OfXTestService2", b =>
     {
         b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
         b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
