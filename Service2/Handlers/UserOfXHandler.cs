@@ -1,15 +1,16 @@
 using System.Linq.Expressions;
+using Kernel.Attributes;
+using OfX.Abstractions;
 using OfX.EntityFrameworkCore;
 using OfX.Responses;
-using Service2.Contract.Queries;
 using WorkerService1.Models;
 
 namespace WorkerService1.Handlers;
 
 public sealed class UserOfXHandler(IServiceProvider serviceProvider)
-    : EfQueryOfXHandler<User, GetUserOfXQuery>(serviceProvider)
+    : EfQueryOfXHandler<User, UserOfAttribute>(serviceProvider)
 {
-    protected override Func<GetUserOfXQuery, Expression<Func<User, bool>>> SetFilter() =>
+    protected override Func<RequestOf<UserOfAttribute>, Expression<Func<User, bool>>> SetFilter() =>
         q => u => q.SelectorIds.Contains(u.Id);
 
     protected override Expression<Func<User, OfXDataResponse>> SetHowToGetDefaultData() =>

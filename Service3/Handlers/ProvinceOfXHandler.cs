@@ -1,15 +1,16 @@
 using System.Linq.Expressions;
+using Kernel.Attributes;
+using OfX.Abstractions;
 using OfX.EntityFrameworkCore;
 using OfX.Responses;
-using Service3.Contract.Queries;
 using Service3Api.Models;
 
 namespace Service3Api.Handlers;
 
 public sealed class ProvinceOfXHandler(IServiceProvider serviceProvider)
-    : EfQueryOfXHandler<Province, GetProvinceOfXQuery>(serviceProvider)
+    : EfQueryOfXHandler<Province, ProvinceOfAttribute>(serviceProvider)
 {
-    protected override Func<GetProvinceOfXQuery, Expression<Func<Province, bool>>> SetFilter() =>
+    protected override Func<RequestOf<ProvinceOfAttribute>, Expression<Func<Province, bool>>> SetFilter() =>
         q => u => q.SelectorIds.Contains(u.Id);
 
     protected override Expression<Func<Province, OfXDataResponse>> SetHowToGetDefaultData() =>

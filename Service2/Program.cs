@@ -1,17 +1,17 @@
 using System.Reflection;
+using Kernel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
 using OfX.Grpc.Extensions;
-using Service2.Contract;
 using WorkerService1;
 using WorkerService1.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
-        cfg.AddContractsContainNamespaces(typeof(IService2ContractAssembly).Assembly);
+        cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
         cfg.AddHandlersFromNamespaceContaining<IAssemblyMarker>();
     })
     .AddOfXEFCore<Service2Context>();

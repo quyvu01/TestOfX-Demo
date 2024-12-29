@@ -14,13 +14,11 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
-        <PackageReference Include="OfX-EFCore" Version="1.1.4" />
+        <PackageReference Include="OfX-EFCore" Version="2.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Service1.Contract\Service1.Contract.csproj" />
-      <ProjectReference Include="..\Service2.Contract\Service2.Contract.csproj" />
-      <ProjectReference Include="..\Service3.Contract\Service3.Contract.csproj" />
     </ItemGroup>
 
 </Project>
