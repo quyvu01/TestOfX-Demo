@@ -1,4 +1,4 @@
-using OfX.Abstractions;
+using OfX.Attributes;
 
 namespace Kernel.Attributes;
 
