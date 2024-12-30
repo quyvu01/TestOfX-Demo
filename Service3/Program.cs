@@ -11,9 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-        cfg.AddHandlersFromNamespaceContaining<IAssemblyMarker>();
     })
-    .AddOfXEFCore<Service3Context>();
+    .AddOfXEFCore(cfg =>
+    {
+        cfg.AddDbContexts(typeof(Service3Context));
+        cfg.AddModelConfigurationsFromNamespaceContaining<IAssemblyMarker>();
+    });
 
 builder.Services.AddDbContextPool<Service3Context>(options =>
 {

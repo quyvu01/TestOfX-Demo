@@ -2,7 +2,6 @@ using Kernel;
 using Kernel.Attributes;
 using OfX.Extensions;
 using OfX.Grpc.Extensions;
-using Service1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +11,6 @@ builder.Services.AddOpenApi();
 builder.Services.AddOfX(cfg =>
 {
     cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-    cfg.AddHandlersFromNamespaceContaining<IAssemblyMarker>();
     cfg.AddGrpcClients(config => config
         .AddGrpcHostWithOfXAttributes("http://localhost:5001", [typeof(UserOfAttribute)])
         .AddGrpcHostWithOfXAttributes("http://localhost:5013", [typeof(ProvinceOfAttribute)])

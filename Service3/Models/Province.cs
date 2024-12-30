@@ -1,5 +1,9 @@
+using Kernel.Attributes;
+using OfX.Attributes;
+
 namespace Service3Api.Models;
 
+[OfXConfigFor<ProvinceOfAttribute>(nameof(Id), nameof(Name))]
 public sealed class Province
 {
     public string Id { get; set; }
