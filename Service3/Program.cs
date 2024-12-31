@@ -1,5 +1,6 @@
 using System.Reflection;
 using Kernel;
+using Kernel.Attributes;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
+        cfg.AddReceivedPipelines(c => c.OfType(typeof(AuthenticatePipeline<CountryOfAttribute>)));
     })
     .AddOfXEFCore(cfg =>
     {
