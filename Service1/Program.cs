@@ -13,7 +13,7 @@ builder.Services.AddOfX(cfg =>
     cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
     cfg.AddGrpcClients(config => config
         .AddGrpcHostWithOfXAttributes("http://localhost:5001", [typeof(UserOfAttribute)])
-        .AddGrpcHostWithOfXAttributes("http://localhost:5013", [typeof(ProvinceOfAttribute)])
+        .AddGrpcHostWithOfXAttributes("http://localhost:5013", [typeof(ProvinceOfAttribute), typeof(CountryOfAttribute)])
     );
 });
 

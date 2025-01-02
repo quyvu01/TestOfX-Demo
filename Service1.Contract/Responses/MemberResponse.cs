@@ -17,10 +17,6 @@ public class MemberResponse
     [ProvinceOf(nameof(ProvinceId), Order = 1)]
     public string ProvinceName { get; set; }
 
-    [ProvinceOf(nameof(ProvinceId), Expression = "CountryId", Order = 1)]
-
-    public string CountryId { get; set; }
-
-    [CountryOf(nameof(CountryId), Order = 2)]
+    [ProvinceOf(nameof(ProvinceId), Expression = "Country.Name", Order = 1)]
     public string CountryName { get; set; }
 }
