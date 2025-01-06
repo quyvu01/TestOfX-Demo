@@ -3,7 +3,7 @@ using Kernel;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.Nats.Extensions;
 using Service3Api;
 using Service3Api.Contexts;
 
@@ -11,10 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-        cfg.AddReceivedPipelines(options =>
-        {
-            options.OfType(typeof(TestPipeline<>));
-        });
+        cfg.AddNats(options => options.Url("nats://localhost:4222"));
+        cfg.AddReceivedPipelines(options => { options.OfType(typeof(TestPipeline<>)); });
     })
     .AddOfXEFCore(cfg =>
     {
@@ -33,6 +31,5 @@ builder.Services.AddDbContextPool<Service3Context>(options =>
 builder.Services.AddGrpc();
 
 var app = builder.Build();
-app.MapOfXGrpcService();
-
+app.StartNatsListeningAsync();
 app.Run();

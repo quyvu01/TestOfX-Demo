@@ -1,7 +1,6 @@
 using Kernel;
-using Kernel.Attributes;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.Nats.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddOfX(cfg =>
 {
     cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-    cfg.AddGrpcClients(config => config
-        .AddGrpcHostWithOfXAttributes("http://localhost:5001", [typeof(UserOfAttribute)])
-        .AddGrpcHostWithOfXAttributes("http://localhost:5013", [typeof(ProvinceOfAttribute), typeof(CountryOfAttribute)])
-    );
+    cfg.AddNats(options => options.Url("nats://localhost:4222"));
 });
 
 builder.Services.AddControllers();

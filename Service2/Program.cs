@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.Nats.Extensions;
 using WorkerService1;
 using WorkerService1.Contexts;
 
@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
+        cfg.AddNats(options => options.Url("nats://localhost:4222"));
     })
     .AddOfXEFCore(cfg =>
     {
@@ -30,5 +31,5 @@ builder.Services.AddDbContextPool<Service2Context>(options =>
 builder.Services.AddGrpc();
 
 var app = builder.Build();
-app.MapOfXGrpcService();
+app.StartNatsListeningAsync();
 app.Run();
