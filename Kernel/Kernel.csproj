@@ -10,8 +10,8 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.51.0"/>
         <PackageReference Include="Grpc.Core" Version="2.46.6"/>
         <PackageReference Include="Grpc.Net.Client" Version="2.51.0"/>
-        <PackageReference Include="OfX" Version="3.1.6" />
-        <PackageReference Include="OfX-gRPC" Version="3.1.6" />
+        <PackageReference Include="OfX" Version="3.1.7" />
+        <PackageReference Include="OfX-gRPC" Version="3.1.7" />
     </ItemGroup>
 
 </Project>
