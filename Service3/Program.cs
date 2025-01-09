@@ -3,7 +3,7 @@ using Kernel;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.RabbitMq.Extensions;
 using Service3Api;
 using Service3Api.Contexts;
 
@@ -11,10 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-        cfg.AddReceivedPipelines(options =>
-        {
-            options.OfType(typeof(TestPipeline<>));
-        });
+        cfg.AddReceivedPipelines(options => options.OfType(typeof(TestPipeline<>)));
+        cfg.AddRabbitMq(config => config.Host("localhost", "/"));
     })
     .AddOfXEFCore(cfg =>
     {
@@ -33,6 +31,6 @@ builder.Services.AddDbContextPool<Service3Context>(options =>
 builder.Services.AddGrpc();
 
 var app = builder.Build();
-app.MapOfXGrpcService();
+app.StartRabbitMqListeningAsync();
 
 app.Run();
