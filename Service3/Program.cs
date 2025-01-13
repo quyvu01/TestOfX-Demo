@@ -14,7 +14,7 @@ builder.Services.AddOfX(cfg =>
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
         cfg.AddNats(options => options.Url("nats://localhost:4222"));
         cfg.AddReceivedPipelines(options => { options.OfType(typeof(TestPipeline<>)); });
-        cfg.AddStronglyTypeIdConverter(c => c.ForType<IdConverterRegister>());
+        cfg.AddStronglyTypeIdConverter(c => c.OfType<IdConverterRegister>());
     })
     .AddOfXEFCore(cfg =>
     {
