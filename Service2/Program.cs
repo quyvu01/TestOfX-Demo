@@ -28,7 +28,6 @@ builder.Services.AddDbContextPool<Service2Context>(options =>
         b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
     });
 }, 128);
-builder.Services.AddGrpc();
 
 var app = builder.Build();
 app.StartNatsListeningAsync();
