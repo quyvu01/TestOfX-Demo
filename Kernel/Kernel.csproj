@@ -10,8 +10,8 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.51.0"/>
         <PackageReference Include="Grpc.Core" Version="2.46.6"/>
         <PackageReference Include="Grpc.Net.Client" Version="2.51.0"/>
-        <PackageReference Include="OfX" Version="3.3.3" />
-        <PackageReference Include="OfX-RabbitMq" Version="3.3.3" />
+        <PackageReference Include="OfX" Version="4.0.0" />
+        <PackageReference Include="OfX-RabbitMq" Version="4.0.0" />
     </ItemGroup>
 
 </Project>

@@ -30,5 +30,5 @@ builder.Services.AddDbContextPool<Service2Context>(options =>
 }, 128);
 
 var app = builder.Build();
-app.StartRabbitMqListeningAsync();
+
 app.Run();
