@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.RabbitMq.Extensions;
 using WorkerService1;
 using WorkerService1.Contexts;
 
@@ -12,12 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-    })
-    .AddOfXEFCore(cfg =>
-    {
-        cfg.AddDbContexts(typeof(Service2Context));
+        cfg.AddRabbitMq(config => config.Host("localhost", "/"));
         cfg.AddModelConfigurationsFromNamespaceContaining<IAssemblyMarker>();
-    });
+    })
+    .AddOfXEFCore(cfg => { cfg.AddDbContexts(typeof(Service2Context)); });
 
 builder.Services.AddDbContextPool<Service2Context>(options =>
 {
@@ -27,8 +25,7 @@ builder.Services.AddDbContextPool<Service2Context>(options =>
         b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
     });
 }, 128);
-builder.Services.AddGrpc();
 
 var app = builder.Build();
-app.MapOfXGrpcService();
+
 app.Run();

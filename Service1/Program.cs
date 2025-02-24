@@ -1,7 +1,11 @@
+using System.Reflection;
 using Kernel;
-using Kernel.Attributes;
+using Microsoft.EntityFrameworkCore;
+using OfX.EntityFrameworkCore.Extensions;
 using OfX.Extensions;
-using OfX.Grpc.Extensions;
+using OfX.RabbitMq.Extensions;
+using Service1;
+using Service1.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,13 +13,31 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddOfX(cfg =>
+    {
+        cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
+        // cfg.AddRabbitMq(config => config.Host("localhost", "/"));
+        cfg.AddModelConfigurationsFromNamespaceContaining<IAssemblyMarker>();
+        cfg.AddRabbitMq(config => config.Host("localhost", "/"));
+    })
+    .AddOfXEFCore(cfg => cfg.AddDbContexts(typeof(Service1Context), typeof(OtherService1Context)));
+
+builder.Services.AddDbContextPool<Service1Context>(options =>
 {
-    cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
-    cfg.AddGrpcClients(config => config
-        .AddGrpcHostWithOfXAttributes("http://localhost:5001", [typeof(UserOfAttribute)])
-        .AddGrpcHostWithOfXAttributes("http://localhost:5013", [typeof(ProvinceOfAttribute), typeof(CountryOfAttribute)])
-    );
-});
+    options.UseNpgsql("Host=localhost;Username=postgres;Password=Abcd@2021;Database=OfXTestService1", b =>
+    {
+        b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+        b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
+    });
+}, 128);
+
+builder.Services.AddDbContextPool<OtherService1Context>(options =>
+{
+    options.UseNpgsql("Host=localhost;Username=postgres;Password=Abcd@2021;Database=OfXTestOtherService1", b =>
+    {
+        b.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+        b.UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery);
+    });
+}, 128);
 
 builder.Services.AddControllers();
 

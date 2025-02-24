@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Service3Api.Contexts;
+using Service1.Contexts;
 
 #nullable disable
 
-namespace Service3Api.Migrations
+namespace Service1.Migrations
 {
-    [DbContext(typeof(Service3Context))]
-    [Migration("20241227025452_initDb")]
+    [DbContext(typeof(Service1Context))]
+    [Migration("20250219134903_initDb")]
     partial class initDb
     {
         /// <inheritdoc />
@@ -19,12 +19,12 @@ namespace Service3Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Service3Api.Models.Province", b =>
+            modelBuilder.Entity("Service1.Models.MemberAdditionalData", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -34,7 +34,7 @@ namespace Service3Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Provinces");
+                    b.ToTable("MemberAdditionalDatas");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Service3Api.Migrations
+namespace Service1.Migrations
 {
     /// <inheritdoc />
     public partial class initDb : Migration
@@ -11,7 +11,7 @@ namespace Service3Api.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Provinces",
+                name: "MemberAdditionalDatas",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -19,7 +19,7 @@ namespace Service3Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provinces", x => x.Id);
+                    table.PrimaryKey("PK_MemberAdditionalDatas", x => x.Id);
                 });
         }
 
@@ -27,7 +27,7 @@ namespace Service3Api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Provinces");
+                name: "MemberAdditionalDatas");
         }
     }
 }
