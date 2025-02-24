@@ -15,12 +15,9 @@ builder.Services.AddOfX(cfg =>
         cfg.AddReceivedPipelines(options => options.OfType(typeof(TestPipeline<>)));
         cfg.AddRabbitMq(config => config.Host("localhost", "/"));
         cfg.AddStronglyTypeIdConverter(c => c.OfType<IdConverterRegister>());
-    })
-    .AddOfXEFCore(cfg =>
-    {
-        cfg.AddDbContexts(typeof(Service3Context));
         cfg.AddModelConfigurationsFromNamespaceContaining<IAssemblyMarker>();
-    });
+    })
+    .AddOfXEFCore(cfg => { cfg.AddDbContexts(typeof(Service3Context)); });
 
 builder.Services.AddDbContextPool<Service3Context>(options =>
 {

@@ -13,12 +13,9 @@ builder.Services.AddOfX(cfg =>
     {
         cfg.AddAttributesContainNamespaces(typeof(IKernelAssemblyMarker).Assembly);
         cfg.AddRabbitMq(config => config.Host("localhost", "/"));
-    })
-    .AddOfXEFCore(cfg =>
-    {
-        cfg.AddDbContexts(typeof(Service2Context));
         cfg.AddModelConfigurationsFromNamespaceContaining<IAssemblyMarker>();
-    });
+    })
+    .AddOfXEFCore(cfg => { cfg.AddDbContexts(typeof(Service2Context)); });
 
 builder.Services.AddDbContextPool<Service2Context>(options =>
 {
