@@ -8,12 +8,17 @@ public class MemberResponse
     public string Id { get; set; }
 
     public string MemberAddressId { get; set; }
-
+    
     [MemberAddressOf(nameof(MemberAddressId))]
     public string MemberProvinceId { get; set; }
-
+    
     [ProvinceOf(nameof(MemberProvinceId), Order = 1)]
     public string MemberProvinceName { get; set; }
+    
+    public string MemberSocialId { get; set; }
+    
+    [MemberSocialOf(nameof(MemberSocialId))]
+    public string MemberSocialName { get; set; }
     
     public string MemberAdditionalId { get; set; }
     
@@ -28,6 +33,12 @@ public class MemberResponse
     
     [UserOf(nameof(UserId), Expression = "ProvinceId")]
     public string ProvinceId { get; set; }
+
+    [ProvinceOf(nameof(ProvinceId), Order = 1)]
+    public string ProvinceName { get; set; }
+
+    [ProvinceOf(nameof(ProvinceId), Expression = "Country.Name", Order = 1)]
+    public string CountryName { get; set; }
     
     [ProvinceOf(nameof(ProvinceId), Expression = "CountryId", Order = 1)]
     public StronglyTypedId<string> CountryId { get; set; }
